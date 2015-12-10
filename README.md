@@ -24,13 +24,23 @@ Install the Jal.Settings library.
 
     container.Install(new SettingsInstaller());
     
-Setup your connection.
+Setup your connection in your config file.
 
-    container.Install(new SqlRepositoryDatabaseInstaller("ConnectionName", "ConnectionString", "CommandTimeout"));
+    <appSettings>
+        <add key="App_1_0_CommandTimeout" value="300" />
+    </appSettings>
+
+    <connectionStrings>
+        <add name="App_1_0_ConnectionString" connectionString="Data Source=xxx; Initial Catalog=yyy; User ID=aaa; Password=bbb;" providerName="System.Data.SqlClient" />
+    </connectionStrings>
+    
+Setup your connection in your code.
+
+    container.Install(new SqlRepositoryDatabaseInstaller("App_1_0", "App_1_0_ConnectionString", "App_1_0_CommandTimeout"));
     
 Setup your repositories to work with the defined connection.
 
-    container.Install(new RepositoryInstaller("ConnectionName"));
+    container.Install(new RepositoryInstaller("App_1_0"));
     
 Create your repository class
 
