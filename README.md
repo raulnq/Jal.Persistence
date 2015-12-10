@@ -2,6 +2,7 @@
 Just another library to interact with a relational database
 ## How to use?
 Note: The Jal.Settings, Jal.Locator.CastleWindsor, Jal.Converter and Jal.AssemblyFinder library are needed.
+
 Setup the AssemblyFinder library.
 
     var directory = AppDomain.CurrentDomain.BaseDirectory;
