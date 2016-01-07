@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Persistence", "Jal.Persistence\Jal.Persistence.csproj", "{0E8F50FF-E07C-406C-9FCF-33A02E4A451C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Persistence.Logger", "Jal.Persistence.Logger\Jal.Persistence.Logger.csproj", "{0D53FB39-482F-4662-B4F5-ED732F955F59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Persistence.Installer", "Jal.Persistence.Installer\Jal.Persistence.Installer.csproj", "{C5F55C21-EC2B-42DA-9EE4-FCD0479057AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Persistence.Logger.Installer", "Jal.Persistence.Logger.Installer\Jal.Persistence.Logger.Installer.csproj", "{1BA63BD5-CD24-43EE-93BF-AC80C9D1B15B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D9F29FD6-F8CD-4540-A18D-181D27AF058D}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Persistence.Tests", "Jal.Persistence.Tests\Jal.Persistence.Tests.csproj", "{0872A406-2994-4192-BFB9-1A7DBB285949}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E8F50FF-E07C-406C-9FCF-33A02E4A451C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E8F50FF-E07C-406C-9FCF-33A02E4A451C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E8F50FF-E07C-406C-9FCF-33A02E4A451C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E8F50FF-E07C-406C-9FCF-33A02E4A451C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D53FB39-482F-4662-B4F5-ED732F955F59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D53FB39-482F-4662-B4F5-ED732F955F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D53FB39-482F-4662-B4F5-ED732F955F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D53FB39-482F-4662-B4F5-ED732F955F59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F55C21-EC2B-42DA-9EE4-FCD0479057AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F55C21-EC2B-42DA-9EE4-FCD0479057AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F55C21-EC2B-42DA-9EE4-FCD0479057AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F55C21-EC2B-42DA-9EE4-FCD0479057AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BA63BD5-CD24-43EE-93BF-AC80C9D1B15B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA63BD5-CD24-43EE-93BF-AC80C9D1B15B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA63BD5-CD24-43EE-93BF-AC80C9D1B15B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA63BD5-CD24-43EE-93BF-AC80C9D1B15B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0872A406-2994-4192-BFB9-1A7DBB285949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0872A406-2994-4192-BFB9-1A7DBB285949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0872A406-2994-4192-BFB9-1A7DBB285949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0872A406-2994-4192-BFB9-1A7DBB285949}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
