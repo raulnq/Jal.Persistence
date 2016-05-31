@@ -59,18 +59,29 @@
     <Compile Include="Fluent\Interface\IParameterReaderDescriptor.cs" />
     <Compile Include="Fluent\Interface\IParameterTypeDescriptor.cs" />
     <Compile Include="Fluent\Interface\IParameterValueDescriptor.cs" />
+    <Compile Include="Fluent\Interface\IRepositoryDatabaseFluentBuilder.cs" />
     <Compile Include="Fluent\Interface\IStoredProcedureDescriptor.cs" />
     <Compile Include="Fluent\Interface\IStoredProcedureInvoker.cs" />
     <Compile Include="Impl\AbstractRepository.cs" />
+    <Compile Include="Impl\AbstractRepositoryLogger.cs" />
+    <Compile Include="Fluent\Interface\IRepositoryCommandFluentBuilder.cs" />
+    <Compile Include="Fluent\Interface\IRepositoryContextStartFluentBuilder.cs" />
+    <Compile Include="Fluent\Interface\IRepositoryContextFluentBuilder.cs" />
+    <Compile Include="Fluent\Interface\IRepositoryContextEndFluentBuilder.cs" />
     <Compile Include="Impl\NullRepositoryLogger.cs" />
     <Compile Include="Impl\RepositoryCommand.cs" />
+    <Compile Include="Fluent\Impl\RepositoryCommandFluentBuilder.cs" />
     <Compile Include="Impl\RepositoryConnection.cs" />
     <Compile Include="Impl\RepositoryContext.cs" />
+    <Compile Include="Fluent\Impl\RepositoryContextFluenttBuilder.cs" />
     <Compile Include="Impl\RepositoryTransaction.cs" />
     <Compile Include="Impl\Sql\AbstractRepositoryExtension.cs" />
     <Compile Include="Impl\Sql\InlineRepositorySettings.cs" />
+    <Compile Include="Fluent\Interface\IRepositoryDatabaseEndFluentBuilder.cs" />
+    <Compile Include="Fluent\Interface\IRepositoryDatabaseStartFluentBuilder.cs" />
     <Compile Include="Impl\Sql\RepositoryCommandExtension.cs" />
     <Compile Include="Impl\Sql\RepositoryDatabase.cs" />
+    <Compile Include="Fluent\Impl\RepositoryDatabaseFluentBuilder.cs" />
     <Compile Include="Impl\Sql\RepositorySettings.cs" />
     <Compile Include="Interface\IRepositoryCommand.cs" />
     <Compile Include="Interface\IRepositoryConnection.cs" />
@@ -87,6 +98,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

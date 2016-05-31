@@ -10,7 +10,7 @@ namespace Jal.Persistence.Impl
 
         private readonly IRepositoryContext _parentRepositoryContext;
 
-        public IRepositoryTransaction CurrentRepositoryTransaction { get; set; }
+        public IRepositoryTransaction CurrentTransaction { get; set; }
 
         private readonly IRepositoryLogger _logger;
 
@@ -45,27 +45,27 @@ namespace Jal.Persistence.Impl
 
         public IRepositoryTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
-            if (CurrentRepositoryTransaction != null)
+            if (CurrentTransaction != null)
             {
-                throw new Exception(string.Format("There is an active repository transaction for the connection, dispose it first. ConnectionId:{0}, TransactionId:{1}, IsolationLevel:{2}", Connection.GetHashCode(), CurrentRepositoryTransaction.Transaction.GetHashCode(), CurrentRepositoryTransaction.Transaction.IsolationLevel));
+                throw new Exception(string.Format("There is an active repository transaction for the connection, dispose it first. ConnectionId:{0}, TransactionId:{1}, IsolationLevel:{2}", Connection.GetHashCode(), CurrentTransaction.Transaction.GetHashCode(), CurrentTransaction.Transaction.IsolationLevel));
             }
 
             var transaction = Connection.BeginTransaction(isolationLevel);
 
-            CurrentRepositoryTransaction = new RepositoryTransaction(transaction, _logger, this);
+            CurrentTransaction = new RepositoryTransaction(transaction, _logger, this);
 
-            _logger.Info(string.Format("Transaction Opened. ConnectionId:{0}, TransactionId:{1}, IsolationLevel:{2}", Connection.GetHashCode(), Connection.GetHashCode(), CurrentRepositoryTransaction.Transaction.IsolationLevel));
+            _logger.Info(string.Format("Transaction Opened. ConnectionId:{0}, TransactionId:{1}, IsolationLevel:{2}", Connection.GetHashCode(), Connection.GetHashCode(), CurrentTransaction.Transaction.IsolationLevel));
 
-            return CurrentRepositoryTransaction;
+            return CurrentTransaction;
         }
 
         public void Close()
         {
-            if (CurrentRepositoryTransaction != null)
+            if (CurrentTransaction != null)
             {
-                CurrentRepositoryTransaction.Dispose();
+                CurrentTransaction.Dispose();
 
-                CurrentRepositoryTransaction = null;
+                CurrentTransaction = null;
             }
 
             if (Connection != null)
@@ -86,7 +86,7 @@ namespace Jal.Persistence.Impl
 
             Connection = null;
 
-            _parentRepositoryContext.CurrentRepositoryConnection = null;
+            _parentRepositoryContext.CurrentConnection = null;
         }
 
         private bool IsConnectionClosed()

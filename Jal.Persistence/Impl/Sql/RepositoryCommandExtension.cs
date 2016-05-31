@@ -44,12 +44,12 @@ namespace Jal.Persistence.Impl.Sql
                 finally
                 {
                     stopWatch.Stop();
-                    repositoryCommand.RepositoryLogger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
+                    repositoryCommand.Logger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
                 }
             }
             catch (Exception ex)
             {
-                repositoryCommand.RepositoryLogger.Error(ex);
+                repositoryCommand.Logger.Error(ex);
                 throw;
             }
         }

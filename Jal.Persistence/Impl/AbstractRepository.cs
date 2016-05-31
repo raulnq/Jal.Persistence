@@ -11,137 +11,137 @@ namespace Jal.Persistence.Impl
     {
         protected IModelConverter ModelConverter;
 
-        private readonly IRepositoryContext _repositoryContext;
+        public IRepositoryCommand Command { get; set; } 
 
-        protected AbstractRepository(IRepositoryContext repositoryContext, IModelConverter modelConverter)
+        protected AbstractRepository(IRepositoryContext repositoryContext, IModelConverter modelConverter, IRepositoryCommand repositoryCommand)
         {
             ModelConverter = modelConverter;
-            _repositoryContext = repositoryContext;
+
+            Context = repositoryContext;
+
+            Command = repositoryCommand;
         }
 
         public TData Query<TData>(string commandName, Action<IDbCommand> commandSetup = null) where TData : class
         {
-            if (_repositoryContext.CurrentRepositoryConnection != null)
+            if (Context.CurrentConnection != null)
             {
-                if (_repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction != null)
+                if (Context.CurrentConnection.CurrentTransaction != null)
                 {
 
-                    return _repositoryContext.Command.Query(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, _repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction.Transaction, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), commandSetup);
+                    return Command.Query(Context.Database.CreateCommand, Context.CurrentConnection.Connection, Context.CurrentConnection.CurrentTransaction.Transaction, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), commandSetup);
                 }
                 else
                 {
-                    return _repositoryContext.Command.Query(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, null, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), commandSetup);
+                    return Command.Query(Context.Database.CreateCommand, Context.CurrentConnection.Connection, null, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), commandSetup);
                 }
 
             }
             else
             {
-                using (var connection = _repositoryContext.Database.CreateConnection())
+                using (var connection = Context.Database.CreateConnection())
                 {
                     connection.Open();
-                    return _repositoryContext.Command.Query(_repositoryContext.Database.CreateCommand, connection, null, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), commandSetup);
+                    return Command.Query(Context.Database.CreateCommand, connection, null, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), commandSetup);
                 }
             }
         }
 
         public object Scalar(string commandName, Action<IDbCommand> commandSetup = null)
         {
-            if (_repositoryContext.CurrentRepositoryConnection != null)
+            if (Context.CurrentConnection != null)
             {
-                if (_repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction != null)
+                if (Context.CurrentConnection.CurrentTransaction != null)
                 {
 
-                    return _repositoryContext.Command.Scalar(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, _repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction.Transaction, commandName, commandSetup);
+                    return Command.Scalar(Context.Database.CreateCommand, Context.CurrentConnection.Connection, Context.CurrentConnection.CurrentTransaction.Transaction, commandName, commandSetup);
                 }
                 else
                 {
-                    return _repositoryContext.Command.Scalar(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, null, commandName, commandSetup);
+                    return Command.Scalar(Context.Database.CreateCommand, Context.CurrentConnection.Connection, null, commandName, commandSetup);
                 }
 
             }
             else
             {
-                using (var connection = _repositoryContext.Database.CreateConnection())
+                using (var connection = Context.Database.CreateConnection())
                 {
                     connection.Open();
-                    return _repositoryContext.Command.Scalar(_repositoryContext.Database.CreateCommand, connection, null, commandName, commandSetup);
+                    return Command.Scalar(Context.Database.CreateCommand, connection, null, commandName, commandSetup);
                 }
             }
         }
 
         public TData Query<TData, TOutput>(string commandName, Action<TOutput, IDbCommand> outputReader, TOutput output, Action<IDbCommand> commandSetup = null) where TData : class where TOutput : class
         {
-            if (_repositoryContext.CurrentRepositoryConnection != null)
+            if (Context.CurrentConnection != null)
                 {
-                    if (_repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction != null)
+                    if (Context.CurrentConnection.CurrentTransaction != null)
                     {
-                        return _repositoryContext.Command.Query(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, _repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction.Transaction, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), outputReader, output, commandSetup);
+                        return Command.Query(Context.Database.CreateCommand, Context.CurrentConnection.Connection, Context.CurrentConnection.CurrentTransaction.Transaction, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), outputReader, output, commandSetup);
                     }
                     else
                     {
-                        return _repositoryContext.Command.Query(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, null, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), outputReader, output, commandSetup);
+                        return Command.Query(Context.Database.CreateCommand, Context.CurrentConnection.Connection, null, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), outputReader, output, commandSetup);
                     }
                 }
                 else
                 {
-                    using (var connection = _repositoryContext.Database.CreateConnection())
+                    using (var connection = Context.Database.CreateConnection())
                     {
                         connection.Open();
-                        return _repositoryContext.Command.Query(_repositoryContext.Database.CreateCommand, connection, null, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), outputReader, output, commandSetup);
+                        return Command.Query(Context.Database.CreateCommand, connection, null, commandName, x => ModelConverter.Convert<IDataReader, TData>(x), outputReader, output, commandSetup);
                     }
                 }
         }
 
         public void Execute<TOutput>(string commandName, Action<TOutput, IDbCommand> outputReader, TOutput output, Action<IDbCommand> commandSetup = null) where TOutput : class
         {
-            if (_repositoryContext.CurrentRepositoryConnection != null)
+            if (Context.CurrentConnection != null)
             {
-                if (_repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction != null)
+                if (Context.CurrentConnection.CurrentTransaction != null)
                 {
-                    _repositoryContext.Command.Execute(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, _repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction.Transaction, commandName, outputReader, output, commandSetup);
+                    Command.Execute(Context.Database.CreateCommand, Context.CurrentConnection.Connection, Context.CurrentConnection.CurrentTransaction.Transaction, commandName, outputReader, output, commandSetup);
                 }
                 else
                 {
-                    _repositoryContext.Command.Execute(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, null, commandName, outputReader, output, commandSetup);
+                    Command.Execute(Context.Database.CreateCommand, Context.CurrentConnection.Connection, null, commandName, outputReader, output, commandSetup);
                 }
             }
             else
             {
-                using (var connection = _repositoryContext.Database.CreateConnection())
+                using (var connection = Context.Database.CreateConnection())
                 {
                     connection.Open();
-                    _repositoryContext.Command.Execute(_repositoryContext.Database.CreateCommand, connection, null, commandName, outputReader, output, commandSetup);
+                    Command.Execute(Context.Database.CreateCommand, connection, null, commandName, outputReader, output, commandSetup);
                 }
             }
         }
 
         public void Execute(string commandName, Action<IDbCommand> commandSetup = null)
         {
-            if (_repositoryContext.CurrentRepositoryConnection != null)
+            if (Context.CurrentConnection != null)
             {
-                if (_repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction != null)
+                if (Context.CurrentConnection.CurrentTransaction != null)
                 {
-                    _repositoryContext.Command.Execute(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, _repositoryContext.CurrentRepositoryConnection.CurrentRepositoryTransaction.Transaction, commandName, commandSetup);
+                    Command.Execute(Context.Database.CreateCommand, Context.CurrentConnection.Connection, Context.CurrentConnection.CurrentTransaction.Transaction, commandName, commandSetup);
                 }
                 else
                 {
-                    _repositoryContext.Command.Execute(_repositoryContext.Database.CreateCommand, _repositoryContext.CurrentRepositoryConnection.Connection, null, commandName, commandSetup);
+                    Command.Execute(Context.Database.CreateCommand, Context.CurrentConnection.Connection, null, commandName, commandSetup);
                 }
             }
             else
             {
-                using (var connection = _repositoryContext.Database.CreateConnection())
+                using (var connection = Context.Database.CreateConnection())
                 {
                     connection.Open();
-                    _repositoryContext.Command.Execute(_repositoryContext.Database.CreateCommand, connection, null, commandName, commandSetup);
+                    Command.Execute(Context.Database.CreateCommand, connection, null, commandName, commandSetup);
                 }
             }
         }
 
-        public IRepositoryContext Context 
-        {
-            get { return _repositoryContext; }
-        }
+        public IRepositoryContext Context { get; private set; }
 
         public IStoredProcedureDescriptor StoredProcedure(string name)
         {

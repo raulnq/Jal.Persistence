@@ -111,8 +111,8 @@ namespace Jal.Persistence.Tests
             return accessoryType; 
         }
 
-        public AccessoryTypeRepository(IRepositoryContext context, IModelConverter modelConverter)
-            : base(context, modelConverter)
+        public AccessoryTypeRepository(IRepositoryContext context, IModelConverter modelConverter, IRepositoryCommand repositoryCommand)
+            : base(context, modelConverter, repositoryCommand)
         {
 
         }

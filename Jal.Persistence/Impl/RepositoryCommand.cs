@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Data;
 using System.Diagnostics;
+using Jal.Persistence.Fluent.Impl;
+using Jal.Persistence.Fluent.Interface;
 using Jal.Persistence.Interface;
 
 namespace Jal.Persistence.Impl
 {
     public class RepositoryCommand : IRepositoryCommand
     {
-        private readonly IRepositoryLogger _repositoryLogger;
+        public static IRepositoryCommand Current;
 
-        public RepositoryCommand(IRepositoryLogger repositoryLogger)
+        public static IRepositoryCommandFluentBuilder Builder
         {
-            _repositoryLogger = repositoryLogger;
+            get
+            {
+                return new RepositoryCommandFluentBuilder();
+            }
+        }
+
+        public RepositoryCommand()
+        {
+            Logger = AbstractRepositoryLogger.Instance;
         }
 
         public void Execute(Func<IDbConnection, string, IDbCommand> createCommand, IDbConnection connection, IDbTransaction transaction, string commandName, Action<IDbCommand> commandSetup)
@@ -40,12 +50,12 @@ namespace Jal.Persistence.Impl
                 finally
                 {
                     stopWatch.Stop();
-                    _repositoryLogger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
+                    Logger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
                 }
             }
             catch (Exception ex)
             {
-                _repositoryLogger.Error(ex);
+                Logger.Error(ex);
                 throw;
             }
         }
@@ -81,12 +91,12 @@ namespace Jal.Persistence.Impl
                 finally
                 {
                     stopWatch.Stop();
-                    _repositoryLogger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
+                    Logger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
                 }
             }
             catch (Exception ex)
             {
-                _repositoryLogger.Error(ex);
+                Logger.Error(ex);
                 throw;
             }
 
@@ -123,12 +133,12 @@ namespace Jal.Persistence.Impl
                 finally
                 {
                     stopWatch.Stop();
-                    _repositoryLogger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
+                    Logger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
                 }
             }
             catch (Exception ex)
             {
-                _repositoryLogger.Error(ex);
+                Logger.Error(ex);
                 throw;
             }
             
@@ -156,7 +166,9 @@ namespace Jal.Persistence.Impl
                             commandSetup(cmd);
                         }
                         parameterCollection = cmd.Parameters;
-                        var data = default(TData);
+
+                        TData data;
+
                         using (var dtr = cmd.ExecuteReader())
                         {
                             data = converter(dtr);
@@ -171,12 +183,12 @@ namespace Jal.Persistence.Impl
                 finally
                 {
                     stopWatch.Stop();
-                    _repositoryLogger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
+                    Logger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
                 }
             }
             catch (Exception ex)
             {
-                _repositoryLogger.Error(ex);
+                Logger.Error(ex);
                 throw;
             }
            
@@ -208,16 +220,16 @@ namespace Jal.Persistence.Impl
                 finally
                 {
                     stopWatch.Stop();
-                    _repositoryLogger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
+                    Logger.Command(commandName, connection.Database, parameterCollection, stopWatch.Elapsed.TotalMilliseconds);
                 }
             }
             catch (Exception ex)
             {
-                _repositoryLogger.Error(ex);
+                Logger.Error(ex);
                 throw;
             }
         }
 
-        public IRepositoryLogger RepositoryLogger { get { return _repositoryLogger; } }
+        public IRepositoryLogger Logger { get; set; }
     }
 }

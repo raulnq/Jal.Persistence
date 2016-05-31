@@ -52,11 +52,11 @@ namespace Jal.Persistence.Installer
                 container.Register(Component.For<IRepositorySettings>().ImplementedBy<InlineRepositorySettings>()
                 .DependsOn(new
                 {
-                    ConnectionStringAttributeName = _connectionStringAttributeName,
-                    CommandTimeoutAttributeName = _commandTimeoutAttributeName,
-                    ApplicationNameAttributeName = _applicationNameAttributeName,
-                    ConnectionTimeoutAttributeName = _connectionTimeoutAttributeName,
-                    StatisticsEnabledAttributeName = _statisticsEnabledAttributeName
+                    connectionStringAttributeName = _connectionStringAttributeName ?? string.Empty,
+                    commandTimeoutAttributeName = _commandTimeoutAttributeName ?? string.Empty,
+                    connectionTimeoutAttributeName = _connectionTimeoutAttributeName ?? string.Empty,
+                    applicationNameAttributeName = _applicationNameAttributeName ?? string.Empty,
+                    statisticsEnabledAttributeName = _statisticsEnabledAttributeName ?? string.Empty
                 })
                 .Named(settingName));
             }
@@ -65,11 +65,11 @@ namespace Jal.Persistence.Installer
                 container.Register(Component.For<IRepositorySettings>().ImplementedBy<RepositorySettings>()
                 .DependsOn(new
                 {
-                    ConnectionStringAttributeName = _connectionStringAttributeName,
-                    CommandTimeoutAttributeName = _commandTimeoutAttributeName,
-                    ApplicationNameAttributeName = _applicationNameAttributeName,
-                    ConnectionTimeoutAttributeName = _connectionTimeoutAttributeName,
-                    StatisticsEnabledAttributeName = _statisticsEnabledAttributeName
+                    connectionStringAttributeName = _connectionStringAttributeName ?? string.Empty,
+                    commandTimeoutAttributeName = _commandTimeoutAttributeName ?? string.Empty,
+                    connectionTimeoutAttributeName = _connectionTimeoutAttributeName ?? string.Empty,
+                    applicationNameAttributeName = _applicationNameAttributeName ?? string.Empty,
+                    statisticsEnabledAttributeName = _statisticsEnabledAttributeName ?? string.Empty
                 })
                 .Named(settingName));
             }

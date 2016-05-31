@@ -119,7 +119,7 @@ namespace Jal.Persistence.Impl
 
             Transaction = null;
 
-            _parentRepositoryConnection.CurrentRepositoryTransaction = null;
+            _parentRepositoryConnection.CurrentTransaction = null;
 
         }
     }

@@ -12,5 +12,7 @@ namespace Jal.Persistence.Interface
         IDataParameter CreateParameter(string name, int size, ParameterType type, ParameterDirection direction, object value);
 
         string CreateParameterName(string name);
+
+        IRepositoryLogger Logger { get;}
     }
 }

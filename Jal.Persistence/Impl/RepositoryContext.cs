@@ -1,46 +1,51 @@
 ﻿using System;
+using Jal.Persistence.Fluent.Impl;
+using Jal.Persistence.Fluent.Interface;
 using Jal.Persistence.Interface;
 
 namespace Jal.Persistence.Impl
 {
     public class RepositoryContext : IRepositoryContext
     {
-        private readonly IRepositoryLogger _logger;
-
-        public RepositoryContext(IRepositoryLogger log, IRepositoryDatabase repositoryDatabase, IRepositoryCommand repositoryCommand)
+        public static IRepositoryContextStartFluentBuilder Builder
         {
-            _logger = log;
+            get { return new RepositoryContextFluenttBuilder(); }
+        }
+
+        public IRepositoryLogger Logger { get; set; }
+
+        public RepositoryContext(IRepositoryDatabase repositoryDatabase)
+        {
+            Logger = AbstractRepositoryLogger.Instance;
+
             Database = repositoryDatabase;
-            Command = repositoryCommand;
         }
 
         public void Dispose()
         {
-            _logger.Info("IRepositoryContext disposed");
+            Logger.Info("IRepositoryContext disposed");
 
-            if (CurrentRepositoryConnection!=null)
+            if (CurrentConnection!=null)
             {
-                CurrentRepositoryConnection.Dispose();
+                CurrentConnection.Dispose();
 
-                CurrentRepositoryConnection = null;
+                CurrentConnection = null;
             }
         }
 
         public IRepositoryDatabase Database { get; private set; }
 
-         public IRepositoryCommand Command { get; private set; }
-
         public IRepositoryConnection CreateConnection()
         {
-            if (CurrentRepositoryConnection != null)
+            if (CurrentConnection != null)
             {
-                throw new Exception(string.Format("There is an active repository connection in the context, dispose it first. ConnectionId:{0}", CurrentRepositoryConnection.Connection.GetHashCode()));
+                throw new Exception(string.Format("There is an active repository connection in the context, dispose it first. ConnectionId:{0}", CurrentConnection.Connection.GetHashCode()));
             }
-            CurrentRepositoryConnection = new RepositoryConnection(Database.CreateConnection(), _logger, this);
+            CurrentConnection = new RepositoryConnection(Database.CreateConnection(), Logger, this);
 
-            return CurrentRepositoryConnection;
+            return CurrentConnection;
         }
 
-        public IRepositoryConnection CurrentRepositoryConnection { get; set; }
+        public IRepositoryConnection CurrentConnection { get; set; }
     }
 }

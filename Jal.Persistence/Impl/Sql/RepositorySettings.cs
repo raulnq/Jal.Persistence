@@ -1,60 +1,29 @@
-﻿using System.ComponentModel;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.SqlClient;
 using Jal.Persistence.Interface;
 using Jal.Settings.Interface;
 
 namespace Jal.Persistence.Impl.Sql
 {
-    public class RepositorySettings : IRepositorySettings, ISupportInitialize 
+    public class RepositorySettings : IRepositorySettings
     {
-        private const string ConnectionStringsSectionName = "ConnectionStringsSectionName";
+        protected const string ConnectionStringsSectionName = "ConnectionStringsSectionName";
 
-        protected readonly ISettingsExtractor SettingsExtractor;
-
-        protected readonly ISectionExtractor SectionExtractor;
-
-        public RepositorySettings(ISettingsExtractor settingsExtractor, ISectionExtractor sectionExtractor)
+        public RepositorySettings(ISettingsExtractor settingsExtractor, ISectionExtractor sectionExtractor,
+            string connectionStringAttributeName, string commandTimeoutAttributeName, string connectionTimeoutAttributeName,
+            string applicationNameAttributeName, string statisticsEnabledAttributeName)
         {
-            SettingsExtractor = settingsExtractor;
-            SectionExtractor = sectionExtractor;
-        }
+            var enviroment = settingsExtractor.Get<string>(ConnectionStringsSectionName);
 
-        public string ConnectionStringAttributeName { get; set; }
+            var section = sectionExtractor.GetSection<ConnectionStringsSection>("connectionStrings" + enviroment);
 
-        public string CommandTimeoutAttributeName { get; set; }
-
-        public string ConnectionTimeoutAttributeName { get; set; }
-
-        public string ApplicationNameAttributeName { get; set; }
-
-        public string StatisticsEnabledAttributeName { get; set; }
-
-        public string ConnectionString { get; private set; }
-
-        public int CommandTimeout { get; private set; }
-
-        public bool StatisticsEnabled { get; private set; }
-
-        public virtual string LoadConnectionString()
-        {
-            var enviroment = SettingsExtractor.Get<string>(ConnectionStringsSectionName);
-
-            var section = SectionExtractor.GetSection<ConnectionStringsSection>("connectionStrings" + enviroment);
-
-            return section.ConnectionStrings[ConnectionStringAttributeName].ConnectionString;
-        }
-
-        public void BeginInit()
-        {
-
-            ConnectionString=LoadConnectionString();
+            ConnectionString = section.ConnectionStrings[connectionStringAttributeName].ConnectionString;
 
             var builder = new SqlConnectionStringBuilder(ConnectionString);
 
             if (string.IsNullOrWhiteSpace(builder.ApplicationName))
             {
-                var name = SettingsExtractor.Get<string>(ApplicationNameAttributeName,false, string.Empty);
+                var name = string.IsInterned(settingsExtractor.Get(applicationNameAttributeName, false, string.Empty));
 
                 if (!string.IsNullOrWhiteSpace(name))
                 {
@@ -62,24 +31,24 @@ namespace Jal.Persistence.Impl.Sql
                 }
             }
 
-            var connectTimeout = SettingsExtractor.Get<int>(ConnectionTimeoutAttributeName,false, 0);
+            var connectTimeout = settingsExtractor.Get(connectionTimeoutAttributeName, false, 0);
 
-            if (connectTimeout!=0)
+            if (connectTimeout != 0)
             {
                 builder.ConnectTimeout = connectTimeout;
             }
 
             ConnectionString = builder.ConnectionString;
 
-            CommandTimeout = SettingsExtractor.Get<int>(CommandTimeoutAttributeName);
+            CommandTimeout = settingsExtractor.Get<int>(commandTimeoutAttributeName);
 
-            StatisticsEnabled = SettingsExtractor.Get<bool>(StatisticsEnabledAttributeName, false, false);
-            
+            StatisticsEnabled = settingsExtractor.Get(statisticsEnabledAttributeName, false, false);
         }
 
-        public void EndInit()
-        {
-            
-        }
+        public string ConnectionString { get; set; }
+
+        public int CommandTimeout { get; set; }
+
+        public bool StatisticsEnabled { get; set; }
     }
 }

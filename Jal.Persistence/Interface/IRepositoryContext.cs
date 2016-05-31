@@ -6,10 +6,10 @@ namespace Jal.Persistence.Interface
     {
         IRepositoryDatabase Database { get; }
 
-        IRepositoryCommand Command { get; }
+        IRepositoryLogger Logger { get; set; }
 
         IRepositoryConnection CreateConnection();
 
-        IRepositoryConnection CurrentRepositoryConnection { get; set; }
+        IRepositoryConnection CurrentConnection { get; set; }
     }
 }

@@ -1,16 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Threading;
 using System.Transactions;
 using Castle.Core;
 using Castle.MicroKernel.Lifestyle;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Jal.Converter.Impl;
 using Jal.Converter.Installer;
+using Jal.Converter.Interface;
 using Jal.Locator.CastleWindsor.Installer;
+using Jal.Locator.Impl;
+using Jal.Persistence.Impl;
+using Jal.Persistence.Impl.Sql;
 using Jal.Persistence.Installer;
+using Jal.Persistence.Interface;
 using Jal.Persistence.Logger.Installer;
+using Jal.Settings.Impl;
 using Jal.Settings.Installer;
 using NUnit.Framework;
+using IsolationLevel = System.Transactions.IsolationLevel;
 
 namespace Jal.Persistence.Tests
 {
@@ -22,15 +33,36 @@ namespace Jal.Persistence.Tests
         [SetUp]
         public void SetUp()
         {
-            AssemblyFinder.Impl.AssemblyFinder.Current = new AssemblyFinder.Impl.AssemblyFinder(TestContext.CurrentContext.TestDirectory);
+            //var setting = SettingsExtractor.Builder.Create;
+            //var section = SectionExtractor.Builder.Create;
+            //var locator = ServiceLocator.Builder.Create as ServiceLocator;
+            //locator.Register(typeof(IConverter<IDataReader, IList<AccessoryType>>), new DataReaderListAccessoryTypeConverter());
+            //locator.Register(typeof(IConverter<IDataReader, AccessoryType>), new DataReaderAccessoryTypeConverter());
+            //var command = RepositoryCommand.Builder.Create;
+            //var converter = ModelConverter.Builder.UseServiceLocator(locator).Create;
+
+            //var repositorySettings = new RepositorySettings(setting, section, "OTS_1_0_ConnectionString", "OTS_1_0_CommandTimeout", "", "", "");
+            ////var logger = new NullRepositoryLogger();
+            //var repositoryDatabase = RepositoryDatabase.Builder.UseSettings(repositorySettings).Create;
+            //var context = RepositoryContext.Builder.UseDatabase(repositoryDatabase).Create;
+
+            
+
+
+            //var a = new AccessoryTypeRepository(context, converter, command);
+
+            //var result = a.Select(new AccessoryType() { Name = "Remote" });
+
+            AssemblyFinder.Impl.AssemblyFinder.Current = AssemblyFinder.Impl.AssemblyFinder.Builder.UsePath(TestContext.CurrentContext.TestDirectory).Create;
             _container = new WindsorContainer();
             //_container.Kernel.Resolver.AddSubResolver(new LoggerSubDependencyResolver());
-            _container.Install(new ConverterInstaller());
+            _container.Install(new ConverterInstaller(() => AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Converter")));
             _container.Install(new SettingsInstaller());
             _container.Install(new SqlRepositoryDatabaseInstaller("DirectvDs", "OTS_1_0_ConnectionString", "OTS_1_0_CommandTimeout", LifestyleType.Scoped));
-            _container.Install(new RepositoryInstaller("DirectvDs", LifestyleType.Scoped));
+            _container.Install(new RepositoryInstaller("DirectvDs", ()=>AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Repository"), LifestyleType.Scoped));
             //_container.Install(new RepositoryLoggerInstaller());
             _container.Install(new ServiceLocatorInstaller());
+            //_container.Register(Component.For<IRepositoryLogger>().ImplementedBy<ConsoleLogger>().IsDefault());
             
         }
 

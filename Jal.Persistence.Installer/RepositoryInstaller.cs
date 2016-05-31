@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
@@ -15,20 +16,20 @@ namespace Jal.Persistence.Installer
 
         private readonly LifestyleType _lifestyleType;
 
-        public RepositoryInstaller(string defaultDataBase, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
+        private readonly Func<Assembly[]> _repositoryProvider;  
+
+        public RepositoryInstaller(string defaultDataBase, Func<Assembly[]> repositoryProvider, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
         {
             _defaultDataBase = defaultDataBase;
+            _repositoryProvider = repositoryProvider;
             _lifestyleType = lifestyleType;
         }
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-
-            container.Register(Component.For<IRepositoryLogger>().ImplementedBy<NullRepositoryLogger>());
-
             container.Register(Component.For<IRepositoryCommand>().ImplementedBy<RepositoryCommand>());
 
-            var assemblies = AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Persistence");
+            var assemblies = _repositoryProvider();
 
             var defaultContextName = string.Format("{0}_context", _defaultDataBase);
 

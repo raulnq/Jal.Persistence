@@ -43,25 +43,25 @@
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
     <Reference Include="Jal.AssemblyFinder">
-      <HintPath>..\packages\Jal.AssemblyFinder.1.1.0.0\lib\net40\Jal.AssemblyFinder.dll</HintPath>
+      <HintPath>..\packages\Jal.AssemblyFinder.1.1.1.0\lib\net40\Jal.AssemblyFinder.dll</HintPath>
     </Reference>
     <Reference Include="Jal.Converter">
-      <HintPath>..\packages\Jal.Converter.1.1.0.0\lib\net40\Jal.Converter.dll</HintPath>
+      <HintPath>..\packages\Jal.Converter.1.1.6.0\lib\net40\Jal.Converter.dll</HintPath>
     </Reference>
     <Reference Include="Jal.Converter.Installer">
-      <HintPath>..\packages\Jal.Converter.Installer.1.1.0.0\lib\net40\Jal.Converter.Installer.dll</HintPath>
+      <HintPath>..\packages\Jal.Converter.Installer.1.1.4.0\lib\net40\Jal.Converter.Installer.dll</HintPath>
     </Reference>
     <Reference Include="Jal.Locator">
-      <HintPath>..\packages\Jal.Locator.1.0.0.0\lib\net40\Jal.Locator.dll</HintPath>
+      <HintPath>..\packages\Jal.Locator.1.0.5.0\lib\net40\Jal.Locator.dll</HintPath>
     </Reference>
     <Reference Include="Jal.Locator.CastleWindsor">
-      <HintPath>..\packages\Jal.Locator.CastleWindsor.1.0.0.0\lib\net40\Jal.Locator.CastleWindsor.dll</HintPath>
+      <HintPath>..\packages\Jal.Locator.CastleWindsor.1.0.3.0\lib\net40\Jal.Locator.CastleWindsor.dll</HintPath>
     </Reference>
     <Reference Include="Jal.Settings">
-      <HintPath>..\packages\Jal.Settings.1.0.0.0\lib\net40\Jal.Settings.dll</HintPath>
+      <HintPath>..\packages\Jal.Settings.1.0.1.0\lib\net40\Jal.Settings.dll</HintPath>
     </Reference>
     <Reference Include="Jal.Settings.Installer">
-      <HintPath>..\packages\Jal.Settings.Installer.1.0.0.0\lib\net40\Jal.Settings.Installer.dll</HintPath>
+      <HintPath>..\packages\Jal.Settings.Installer.1.0.1.0\lib\net40\Jal.Settings.Installer.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="AccessoryType.cs" />
     <Compile Include="AccessoryTypeRepository.cs" />
+    <Compile Include="ConsoleLogger.cs" />
     <Compile Include="DataReaderAccessoryTypeConverter.cs" />
     <Compile Include="DataReaderListAccessoryTypeConverter.cs" />
     <Compile Include="IAccessoryTypeRepository.cs" />

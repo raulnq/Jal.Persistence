@@ -3,6 +3,8 @@ using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Jal.Persistence.Fluent.Impl;
+using Jal.Persistence.Fluent.Interface;
 using Jal.Persistence.Interface;
 using Jal.Persistence.Model;
 
@@ -10,18 +12,22 @@ namespace Jal.Persistence.Impl.Sql
 {
     public class RepositoryDatabase : IRepositoryDatabase
     {
-        private readonly IRepositoryLogger _logger;
+        public static IRepositoryDatabase Current;
+
+        public static IRepositoryDatabaseStartFluentBuilder Builder
+        {
+            get { return new RepositoryDatabaseFluentBuilder(); }
+        }
+
+        public IRepositoryLogger Logger { get; set; }
 
         private readonly IRepositorySettings _settings;
 
-        public RepositoryDatabase(IRepositorySettings settings, IRepositoryLogger logger, IRepositoryCommand repositoryCommandInvoker)
+        public RepositoryDatabase(IRepositorySettings settings)
         {
             _settings = settings;
-            _logger = logger;
-            RepositoryCommand = repositoryCommandInvoker;
+            Logger = AbstractRepositoryLogger.Instance;
         }
-
-        public IRepositoryCommand RepositoryCommand { get; private set; }
 
         public IDbCommand CreateCommand(IDbConnection connection, string commandName)
         {
@@ -47,7 +53,7 @@ namespace Jal.Persistence.Impl.Sql
                 connection.StateChange += StateChangeEventHandler;
             }
 
-            _logger.Info(string.Format("Connection created. ConnectionId:{0}", connection.GetHashCode()));
+            Logger.Info(string.Format("Connection created. ConnectionId:{0}", connection.GetHashCode()));
 
             return connection;
         }
@@ -61,7 +67,7 @@ namespace Jal.Persistence.Impl.Sql
                 {
                     var d = connection.RetrieveStatistics() as Hashtable;
                     var s = string.Join(";", (from string name in d.Keys select name+":"+Convert.ToString(d[name])).ToArray());
-                    _logger.Info(s);
+                    Logger.Info(s);
                 }
             }
 

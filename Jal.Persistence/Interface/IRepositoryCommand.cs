@@ -15,6 +15,6 @@ namespace Jal.Persistence.Interface
 
         object Scalar(Func<IDbConnection, string, IDbCommand> createCommand, IDbConnection connection, IDbTransaction transaction, string commandName, Action<IDbCommand> commandSetup);
 
-        IRepositoryLogger RepositoryLogger { get; }
+        IRepositoryLogger Logger { get; set; }
     }
 }

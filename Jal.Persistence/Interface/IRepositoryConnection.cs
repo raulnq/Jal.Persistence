@@ -7,7 +7,7 @@ namespace Jal.Persistence.Interface
     {
         IDbConnection Connection { get; }
 
-        IRepositoryTransaction CurrentRepositoryTransaction { get; set; }
+        IRepositoryTransaction CurrentTransaction { get; set; }
 
         IRepositoryTransaction BeginTransaction(IsolationLevel isolationLevel);
 
