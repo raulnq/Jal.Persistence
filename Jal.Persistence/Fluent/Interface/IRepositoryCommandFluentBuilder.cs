@@ -2,11 +2,8 @@ using Jal.Persistence.Interface;
 
 namespace Jal.Persistence.Fluent.Interface
 {
-    public interface IRepositoryCommandFluentBuilder
+    public interface IRepositoryCommandFluentBuilder : IRepositoryCommandEndFluentBuilder
     {
-        IRepositoryCommand Create
-        {
-            get;
-        }
+        IRepositoryCommandEndFluentBuilder UseLogger(IRepositoryLogger repositoryLogger);
     }
 }

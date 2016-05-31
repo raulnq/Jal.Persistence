@@ -5,9 +5,8 @@ using Jal.Persistence.Interface;
 
 namespace Jal.Persistence.Fluent.Impl
 {
-    public class RepositoryContextFluenttBuilder : IRepositoryContextStartFluentBuilder, IRepositoryContextFluentBuilder
+    public class RepositoryContextFluentBuilder : IRepositoryContextStartFluentBuilder, IRepositoryContextFluentBuilder
     {
-
         private IRepositoryDatabase _repositoryDatabase;
 
         private IRepositoryContext _repositoryContext;

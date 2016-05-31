@@ -16,12 +16,12 @@ namespace Jal.Persistence.Installer
 
         private readonly LifestyleType _lifestyleType;
 
-        private readonly Func<Assembly[]> _repositoryProvider;  
+        private readonly Assembly[] _repositorySourceAssemblies;
 
-        public RepositoryInstaller(string defaultDataBase, Func<Assembly[]> repositoryProvider, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
+        public RepositoryInstaller(string defaultDataBase, Assembly[] repositorySourceAssemblies, LifestyleType lifestyleType = LifestyleType.PerWebRequest)
         {
             _defaultDataBase = defaultDataBase;
-            _repositoryProvider = repositoryProvider;
+            _repositorySourceAssemblies = repositorySourceAssemblies;
             _lifestyleType = lifestyleType;
         }
 
@@ -29,7 +29,7 @@ namespace Jal.Persistence.Installer
         {
             container.Register(Component.For<IRepositoryCommand>().ImplementedBy<RepositoryCommand>());
 
-            var assemblies = _repositoryProvider();
+            var assemblies = _repositorySourceAssemblies;
 
             var defaultContextName = string.Format("{0}_context", _defaultDataBase);
 

@@ -9,7 +9,7 @@ namespace Jal.Persistence.Impl
     {
         public static IRepositoryContextStartFluentBuilder Builder
         {
-            get { return new RepositoryContextFluenttBuilder(); }
+            get { return new RepositoryContextFluentBuilder(); }
         }
 
         public IRepositoryLogger Logger { get; set; }

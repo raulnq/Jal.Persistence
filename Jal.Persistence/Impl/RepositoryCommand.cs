@@ -11,7 +11,7 @@ namespace Jal.Persistence.Impl
     {
         public static IRepositoryCommand Current;
 
-        public static IRepositoryCommandFluentBuilder Builder
+        public static IRepositoryCommandStartFluentBuilder Builder
         {
             get
             {
