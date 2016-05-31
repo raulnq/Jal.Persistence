@@ -49,7 +49,7 @@ namespace Jal.Persistence.Installer
             //Setting Registration - Singleton
             if (_connectionStringInline)
             {
-                container.Register(Component.For<IRepositorySettings>().ImplementedBy<InlineRepositorySettings>()
+                container.Register(Component.For<IRepositorySettings>().ImplementedBy<RepositorySettings>()
                 .DependsOn(new
                 {
                     connectionStringAttributeName = _connectionStringAttributeName ?? string.Empty,
@@ -62,7 +62,7 @@ namespace Jal.Persistence.Installer
             }
             else
             {
-                container.Register(Component.For<IRepositorySettings>().ImplementedBy<RepositorySettings>()
+                container.Register(Component.For<IRepositorySettings>().ImplementedBy<MachineRepositorySettings>()
                 .DependsOn(new
                 {
                     connectionStringAttributeName = _connectionStringAttributeName ?? string.Empty,

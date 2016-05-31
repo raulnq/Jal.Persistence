@@ -38,9 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Jal.Locator.1.0.6.0\lib\net40\Jal.Locator.dll</HintPath>
     </Reference>
-    <Reference Include="Jal.Settings, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Jal.Settings, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Jal.Settings.1.0.2.0\lib\net40\Jal.Settings.dll</HintPath>
+      <HintPath>..\packages\Jal.Settings.1.0.3.0\lib\net40\Jal.Settings.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -87,7 +87,7 @@
     <Compile Include="Impl\Sql\RepositoryCommandExtension.cs" />
     <Compile Include="Impl\Sql\RepositoryDatabase.cs" />
     <Compile Include="Fluent\Impl\RepositoryDatabaseFluentBuilder.cs" />
-    <Compile Include="Impl\Sql\RepositorySettings.cs" />
+    <Compile Include="Impl\Sql\MachineRepositorySettings.cs" />
     <Compile Include="Interface\IRepositoryCommand.cs" />
     <Compile Include="Interface\IRepositoryConnection.cs" />
     <Compile Include="Interface\IRepositoryContext.cs" />

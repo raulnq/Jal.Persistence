@@ -1,14 +1,13 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.SqlClient;
 using Jal.Persistence.Interface;
 using Jal.Settings.Interface;
 
 namespace Jal.Persistence.Impl.Sql
 {
-    public class InlineRepositorySettings : IRepositorySettings
+    public class RepositorySettings : IRepositorySettings
     {
-        public InlineRepositorySettings(ISettingsExtractor settingsExtractor, ISectionExtractor sectionExtractor,
+        public RepositorySettings(ISettingsExtractor settingsExtractor, ISectionExtractor sectionExtractor,
             string connectionStringAttributeName, string commandTimeoutAttributeName, string connectionTimeoutAttributeName,
             string applicationNameAttributeName, string statisticsEnabledAttributeName)
         {

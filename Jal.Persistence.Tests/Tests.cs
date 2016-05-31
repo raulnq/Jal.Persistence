@@ -41,7 +41,7 @@ namespace Jal.Persistence.Tests
             var converter = ModelConverter.Builder.UseFactory(locator).Create;
 
             var command = RepositoryCommand.Builder.Create;
-            var repositorySettings = new RepositorySettings(setting, section, "OTS_1_0_ConnectionString", "OTS_1_0_CommandTimeout", "", "", "");
+            var repositorySettings = new MachineRepositorySettings(setting, section, "OTS_1_0_ConnectionString", "OTS_1_0_CommandTimeout", "", "", "");
             ////var logger = new NullRepositoryLogger();
             var repositoryDatabase = RepositoryDatabase.Builder.UseSettings(repositorySettings).Create;
             var context = RepositoryContext.Builder.UseDatabase(repositoryDatabase).Create;

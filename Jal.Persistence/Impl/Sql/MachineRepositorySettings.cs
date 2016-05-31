@@ -5,11 +5,11 @@ using Jal.Settings.Interface;
 
 namespace Jal.Persistence.Impl.Sql
 {
-    public class RepositorySettings : IRepositorySettings
+    public class MachineRepositorySettings : IRepositorySettings
     {
         protected const string ConnectionStringsSectionName = "ConnectionStringsSectionName";
 
-        public RepositorySettings(ISettingsExtractor settingsExtractor, ISectionExtractor sectionExtractor,
+        public MachineRepositorySettings(ISettingsExtractor settingsExtractor, ISectionExtractor sectionExtractor,
             string connectionStringAttributeName, string commandTimeoutAttributeName, string connectionTimeoutAttributeName,
             string applicationNameAttributeName, string statisticsEnabledAttributeName)
         {
