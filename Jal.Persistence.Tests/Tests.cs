@@ -58,7 +58,7 @@ namespace Jal.Persistence.Tests
             //_container.Kernel.Resolver.AddSubResolver(new LoggerSubDependencyResolver());
             _container.Install(new ConverterInstaller(AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Converter")));
             _container.Install(new SettingsInstaller());
-            _container.Install(new SqlRepositoryDatabaseInstaller("DirectvDs", "OTS_1_0_ConnectionString", "OTS_1_0_CommandTimeout", LifestyleType.Scoped));
+            _container.Install(new SqlRepositoryDatabaseMachineInstaller("DirectvDs", "OTS_1_0_ConnectionString", "OTS_1_0_CommandTimeout", LifestyleType.Scoped));
             _container.Install(new RepositoryInstaller("DirectvDs", AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Repository"), LifestyleType.Scoped));
             //_container.Install(new RepositoryLoggerInstaller());
             _container.Install(new ServiceLocatorInstaller());

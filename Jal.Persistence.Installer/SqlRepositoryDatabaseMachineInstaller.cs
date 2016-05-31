@@ -8,7 +8,7 @@ using Jal.Persistence.Interface;
 
 namespace Jal.Persistence.Installer
 {
-    public class SqlRepositoryDatabaseInstaller : IWindsorInstaller
+    public class SqlRepositoryDatabaseMachineInstaller : IWindsorInstaller
     {
         #region IWindsorInstaller Members
 
@@ -26,7 +26,7 @@ namespace Jal.Persistence.Installer
 
         private readonly LifestyleType _lifestyleType;
 
-        public SqlRepositoryDatabaseInstaller(string databaseName, string connectionStringAttributeName, string commandTimeoutAttributeName, LifestyleType lifestyleType = LifestyleType.PerWebRequest, string applicationNameAttributeName = null, string statisticsEnabledAttributeName=null, string connectionTimeoutAttributeName = null)
+        public SqlRepositoryDatabaseMachineInstaller(string databaseName, string connectionStringAttributeName, string commandTimeoutAttributeName, LifestyleType lifestyleType = LifestyleType.PerWebRequest, string applicationNameAttributeName = null, string statisticsEnabledAttributeName = null, string connectionTimeoutAttributeName = null)
         {
             _databaseName = databaseName;
             _connectionStringAttributeName = connectionStringAttributeName;
@@ -43,8 +43,7 @@ namespace Jal.Persistence.Installer
 
             var contextName = string.Format("{0}_context", _databaseName);
 
-            //Setting Registration - Singleton
-            container.Register(Component.For<IRepositorySettings>().ImplementedBy<RepositorySettings>()
+            container.Register(Component.For<IRepositorySettings>().ImplementedBy<MachineRepositorySettings>()
             .DependsOn(new
             {
                 connectionStringAttributeName = _connectionStringAttributeName ?? string.Empty,
@@ -54,7 +53,6 @@ namespace Jal.Persistence.Installer
                 statisticsEnabledAttributeName = _statisticsEnabledAttributeName ?? string.Empty
             })
             .Named(settingName));
-
 
             container.Register(Component.For<IRepositoryDatabase>().ImplementedBy<RepositoryDatabase>().DependsOn(ServiceOverride.ForKey<IRepositorySettings>().Eq(settingName)).Named(_databaseName));
 
