@@ -10,8 +10,8 @@ namespace Jal.Persistence.Impl.Sql
         protected const string ConnectionStringsSectionName = "ConnectionStringsSectionName";
 
         public MachineRepositorySettings(ISettingsExtractor settingsExtractor, ISectionExtractor sectionExtractor,
-            string connectionStringAttributeName, string commandTimeoutAttributeName, string connectionTimeoutAttributeName,
-            string applicationNameAttributeName, string statisticsEnabledAttributeName)
+            string connectionStringAttributeName, string commandTimeoutAttributeName, string connectionTimeoutAttributeName = null,
+            string applicationNameAttributeName = null, string statisticsEnabledAttributeName = null)
         {
             var enviroment = settingsExtractor.Get<string>(ConnectionStringsSectionName);
 

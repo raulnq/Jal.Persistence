@@ -81,7 +81,7 @@
     <Compile Include="Fluent\Impl\RepositoryContextFluentBuilder.cs" />
     <Compile Include="Impl\RepositoryTransaction.cs" />
     <Compile Include="Impl\Sql\AbstractRepositoryExtension.cs" />
-    <Compile Include="Impl\Sql\InlineRepositorySettings.cs" />
+    <Compile Include="Impl\Sql\RepositorySettings.cs" />
     <Compile Include="Fluent\Interface\IRepositoryDatabaseEndFluentBuilder.cs" />
     <Compile Include="Fluent\Interface\IRepositoryDatabaseStartFluentBuilder.cs" />
     <Compile Include="Impl\Sql\RepositoryCommandExtension.cs" />

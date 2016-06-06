@@ -42,9 +42,6 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Jal.AssemblyFinder">
-      <HintPath>..\packages\Jal.AssemblyFinder.1.1.1.0\lib\net40\Jal.AssemblyFinder.dll</HintPath>
-    </Reference>
     <Reference Include="Jal.Converter, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Jal.Converter.1.1.7.0\lib\net40\Jal.Converter.dll</HintPath>
@@ -52,6 +49,9 @@
     <Reference Include="Jal.Converter.Installer, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Jal.Converter.Installer.1.1.5.0\lib\net40\Jal.Converter.Installer.dll</HintPath>
+    </Reference>
+    <Reference Include="Jal.Finder">
+      <HintPath>..\packages\Jal.Finder.1.0.0.0\lib\net40\Jal.Finder.dll</HintPath>
     </Reference>
     <Reference Include="Jal.Locator, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -61,9 +61,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Jal.Locator.CastleWindsor.1.0.4.0\lib\net40\Jal.Locator.CastleWindsor.dll</HintPath>
     </Reference>
-    <Reference Include="Jal.Settings, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Jal.Settings, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Jal.Settings.1.0.3.0\lib\net40\Jal.Settings.dll</HintPath>
+      <HintPath>..\packages\Jal.Settings.1.0.4.0\lib\net40\Jal.Settings.dll</HintPath>
     </Reference>
     <Reference Include="Jal.Settings.Installer, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

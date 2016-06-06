@@ -37,14 +37,14 @@ namespace Jal.Persistence.Installer
             {
                 foreach (var assembly in assemblies)
                 {
-                    var descriptorDefault = Classes.FromAssembly(assembly).Where(type => !Attribute.IsDefined(type, typeof(DataBaseAttribute))).WithService.AllInterfaces()
+                    var descriptorDefault = Classes.FromAssembly(assembly).Where(type => !Attribute.IsDefined(type, typeof(DataBaseAttribute)) && typeof(AbstractRepository).IsAssignableFrom(type)).WithService.AllInterfaces()
                         .Configure(c =>
                         {
                             c.DependsOn(ServiceOverride.ForKey<IRepositoryContext>().Eq(defaultContextName));
                         }
                         );
 
-                    var descriptor = Classes.FromAssembly(assembly).Where(type => Attribute.IsDefined(type, typeof(DataBaseAttribute))).WithService.AllInterfaces()
+                    var descriptor = Classes.FromAssembly(assembly).Where(type => Attribute.IsDefined(type, typeof(DataBaseAttribute)) && typeof(AbstractRepository).IsAssignableFrom(type)).WithService.AllInterfaces()
                         .Configure(
                             c =>
                             {

@@ -11,6 +11,7 @@ using Castle.Windsor;
 using Jal.Converter.Impl;
 using Jal.Converter.Installer;
 using Jal.Converter.Interface;
+using Jal.Finder.Impl;
 using Jal.Locator.CastleWindsor.Installer;
 using Jal.Locator.Impl;
 using Jal.Persistence.Impl;
@@ -41,7 +42,7 @@ namespace Jal.Persistence.Tests
             var converter = ModelConverter.Builder.UseFactory(locator).Create;
 
             var command = RepositoryCommand.Builder.Create;
-            var repositorySettings = new MachineRepositorySettings(setting, section, "OTS_1_0_ConnectionString", "OTS_1_0_CommandTimeout", "", "", "");
+            var repositorySettings = new MachineRepositorySettings(setting, section, "OTS_1_0_ConnectionString", "OTS_1_0_CommandTimeout");
             ////var logger = new NullRepositoryLogger();
             var repositoryDatabase = RepositoryDatabase.Builder.UseSettings(repositorySettings).Create;
             var context = RepositoryContext.Builder.UseDatabase(repositoryDatabase).Create;
@@ -53,13 +54,13 @@ namespace Jal.Persistence.Tests
 
             var result = a.Select(new AccessoryType() { Name = "Remote" });
 
-            AssemblyFinder.Impl.AssemblyFinder.Current = AssemblyFinder.Impl.AssemblyFinder.Builder.UsePath(TestContext.CurrentContext.TestDirectory).Create;
+            var finder = AssemblyFinder.Builder.UsePath(TestContext.CurrentContext.TestDirectory).Create;
             _container = new WindsorContainer();
             //_container.Kernel.Resolver.AddSubResolver(new LoggerSubDependencyResolver());
-            _container.Install(new ConverterInstaller(AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Converter")));
+            _container.Install(new ConverterInstaller(finder.GetAssemblies("Converter")));
             _container.Install(new SettingsInstaller());
             _container.Install(new SqlRepositoryDatabaseMachineInstaller("DirectvDs", "OTS_1_0_ConnectionString", "OTS_1_0_CommandTimeout", LifestyleType.Scoped));
-            _container.Install(new RepositoryInstaller("DirectvDs", AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Repository"), LifestyleType.Scoped));
+            _container.Install(new RepositoryInstaller("DirectvDs", finder.GetAssemblies("Repository"), LifestyleType.Scoped));
             //_container.Install(new RepositoryLoggerInstaller());
             _container.Install(new ServiceLocatorInstaller());
             //_container.Register(Component.For<IRepositoryLogger>().ImplementedBy<ConsoleLogger>().IsDefault());

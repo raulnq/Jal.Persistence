@@ -8,8 +8,8 @@ namespace Jal.Persistence.Impl.Sql
     public class RepositorySettings : IRepositorySettings
     {
         public RepositorySettings(ISettingsExtractor settingsExtractor, ISectionExtractor sectionExtractor,
-            string connectionStringAttributeName, string commandTimeoutAttributeName, string connectionTimeoutAttributeName,
-            string applicationNameAttributeName, string statisticsEnabledAttributeName)
+            string connectionStringAttributeName, string commandTimeoutAttributeName, string connectionTimeoutAttributeName = null,
+            string applicationNameAttributeName = null, string statisticsEnabledAttributeName = null)
         {
 
             var section = sectionExtractor.GetSection<ConnectionStringsSection>("connectionStrings");
